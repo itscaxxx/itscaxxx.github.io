@@ -1,0 +1,222 @@
+/* Global Styles */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #e3f2fd; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+}
+
+.title {
+    color: #0d47a1; 
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    font-weight: 600;
+}
+
+/* Envelope Container Setup */
+.envelope-wrapper {
+    position: relative;
+    width: 280px;
+    height: 180px;
+    margin: 0 auto 40px auto;
+}
+
+/* Deep Blue Envelope Base */
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: #01579b; 
+    box-shadow: 0 4px 20px rgba(2, 136, 209, 0.4);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* Envelope Top Flap */
+.envelope::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 140px solid transparent;
+    border-right: 140px solid transparent;
+    border-top: 100px solid #039be5; 
+    transform-origin: top;
+    transition: transform 0.4s ease 0.2s, z-index 0.2s ease;
+    z-index: 4; 
+}
+
+/* Envelope Side Flaps */
+.envelope::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 140px solid #0277bd;
+    border-right: 140px solid #0277bd;
+    border-bottom: 95px solid #0277bd;
+    z-index: 3; 
+}
+
+/* Pearl Wax Seal */
+.pearl-seal {
+    position: absolute;
+    top: 85px;
+    left: 125px;
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle at 30% 30%, #ffffff, #b2ebf2);
+    border-radius: 50%;
+    z-index: 5; 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    transition: transform 0.4s ease 0.2s, opacity 0.3s ease;
+}
+
+/* The Love Letter Card */
+.letter {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+    width: 260px;
+    height: 165px;
+    background-color: #ffffff;
+    padding: 15px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 2; 
+    
+    /* Completely hidden when closed */
+    opacity: 0;
+    transform: translateY(0) scale(0.9);
+    transition: transform 0.5s ease, opacity 0.3s ease, z-index 0.5s ease;
+    overflow: hidden;
+}
+
+/* Letter Content Layout */
+.letter-content {
+    text-align: center;
+    font-size: 14px;
+    color: #37474f;
+    line-height: 1.8;
+    /* CHANGED: Set font strictly to Times New Roman */
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.to-tag {
+    display: inline-block;
+    background-color: #e0f7fa; 
+    color: #00838f;
+    padding: 2px 8px;
+    font-size: 12px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    float: left;
+}
+
+.message-line {
+    margin: 5px 0;
+    clear: both;
+}
+
+.highlight {
+    color: #0077c2;
+    font-weight: bold;
+}
+
+/* --- Interactive Open States --- */
+.envelope.open::before {
+    transform: rotateX(180deg);
+    z-index: 1; 
+}
+
+.envelope.open .pearl-seal {
+    transform: translateY(-40px) scale(0.5);
+    opacity: 0;
+}
+
+.envelope.open .letter {
+    opacity: 1;
+    transform: translateY(-120px) scale(1);
+    height: 240px;
+    z-index: 6; 
+    box-shadow: 0 10px 30px rgba(2, 136, 209, 0.3);
+    overflow-y: auto;
+}
+
+/* Control Buttons */
+.buttons {
+    margin-top: 20px;
+}
+
+button {
+    background-color: transparent;
+    color: #0288d1;
+    border: 2px solid #0288d1;
+    padding: 8px 30px;
+    margin: 0 10px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s, transform 0.1s;
+}
+
+button:hover {
+    background-color: #0288d1;
+    color: #ffffff;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* --- Butterfly Effect Styles --- */
+#butterfly-container {
+    position: absolute;
+    top: 90px;
+    left: 130px;
+    width: 20px;
+    height: 20px;
+    z-index: 7; 
+    pointer-events: none;
+}
+
+.butterfly {
+    position: absolute;
+    font-size: 24px; /* Size of the 13 emoji */
+    user-select: none;
+    animation: flyUpAndAway 2.5s ease-out forwards;
+}
+
+@keyframes flyUpAndAway {
+    0% {
+        transform: translate(0, 0) scale(0.3) rotate(0deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 1;
+    }
+    100% {
+        /* Flutters away to custom randomized values from JavaScript */
+        transform: translate(var(--x-axis), var(--y-axis)) scale(1.3) rotate(var(--rotate));
+        opacity: 0;
+    }
+}
